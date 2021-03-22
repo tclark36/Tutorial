@@ -1,3 +1,26 @@
+<?php
+  $email = "";
+  $epassword = "";
+  $error = false;
+
+  if(isset($_POST["submit"])) {
+    if(isset($_POST["email"])) $email=$_POST["email"];
+    if(isset($_POST["password"])) $epassword=$_POST["password"];
+  }
+
+  if(!$error) {
+    include 'dbconnect.php';
+    $sql = "select * from cpsc.employee where email='$email' and password='$epassword'";
+    $result = $conn->query($sql);
+    $row=mysqli_fetch_array($result);
+    if($row) {
+      Header("Location:listings.php");
+    } else {
+      $error = true;
+    }
+  }
+?>
+
 <!DOCTYPE html>
 <html lan="en">
     <head>
